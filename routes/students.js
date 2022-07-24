@@ -3,6 +3,7 @@ var router = express.Router();
 
 const knex = require("../db/knex");
 
+//Get all students
 router.get("/", async function (req, res, next) {
   try {
     const students = await knex("students").select();
@@ -12,6 +13,7 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+//Get a student through student id
 router.get("/:id", async function (req, res, next) {
   const id = req.params.id;
   try {
@@ -22,6 +24,7 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
+//Post a new student
 router.post("/", async function (req, res, next) {
   const first_name = req.body.first_name;
   const last_name = req.body.last_name;
@@ -42,6 +45,7 @@ router.post("/", async function (req, res, next) {
         });
 });
 
+//Update a student's details through student id
 router.put('/:id', async function(req, res, next) {
   const id = req.params.id;
   const new_first_name = req.body.first_name;
@@ -61,6 +65,7 @@ router.put('/:id', async function(req, res, next) {
   }
 })
 
+//Delete a student through student id
 router.delete('/:id', async function(req, res, next) {
   const id = req.params.id;
   try {

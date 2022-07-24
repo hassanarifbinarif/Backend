@@ -3,7 +3,7 @@ var router = express.Router();
 
 const knex = require('../db/knex');
 
-/* GET home page. */
+// Get all books
 router.get('/', async function(req, res, next) {
     try {
         const books = await knex('books').select();
@@ -16,6 +16,7 @@ router.get('/', async function(req, res, next) {
 
 });
 
+// Get a single book through book id
 router.get("/:id", async function (req, res, next) {
     const id = req.params.id;
     try {
@@ -26,6 +27,7 @@ router.get("/:id", async function (req, res, next) {
     }
 });
 
+//Post new book
 router.post("/", async function (req, res, next) {
     const book_name = req.body.book_name;
     const author = req.body.author;
@@ -50,8 +52,10 @@ router.post("/", async function (req, res, next) {
             console.log(err);
             return res.status(400).json({ success: false, message: "Cannot post new entry." });
           });
+
 });
-  
+
+//Update a book's details through book id
 router.put('/:id', async function(req, res, next) {
     const id = req.params.id;
     const new_book_name = req.body.book_name;
@@ -77,7 +81,8 @@ router.put('/:id', async function(req, res, next) {
       return res.status(400).json({success: false, message: err.message});
     }
 })
-  
+
+//Delete a book through book id
 router.delete('/:id', async function(req, res, next) {
     const id = req.params.id;
     try {
